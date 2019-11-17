@@ -111,6 +111,23 @@ public class IntList {
         return n_list;
     }
 
+    public static IntList reverse(IntList A){
+        if (A == null || A.rest == null){
+            return A;
+        }
+        IntList cur = Ax;
+        IntList ptr = cur.rest;
+        cur.rest = null;
+        while (ptr != null) {
+            IntList next = ptr.rest;
+            ptr.rest = cur;
+            cur = ptr;
+            ptr = next;
+        }
+        A = cur;
+        return A;
+    }
+
 
 
 
