@@ -19,7 +19,7 @@ public class TestPalindrome {
     }
 
     @Test
-    public void TestPalindrome(){
+    public void testPalindrome1() {
         assertFalse(palindrome.isPalindrome("cat"));
         assertTrue(palindrome.isPalindrome("racecar"));
         assertTrue(palindrome.isPalindrome("a"));
@@ -28,7 +28,7 @@ public class TestPalindrome {
     }
 
     @Test
-    public void TestPalindrome2(){
+    public void testPalindrome2() {
         assertTrue(palindrome.isPalindrome("a", cc));
         assertTrue(palindrome.isPalindrome("flake", cc));
         assertFalse(palindrome.isPalindrome("racecar", cc));
