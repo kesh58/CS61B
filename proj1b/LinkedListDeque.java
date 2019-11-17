@@ -49,12 +49,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     //Returns true if deque is empty, false otherwise.
     @Override
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return size == 0;
     }
 
     //Returns the number of items in the deque.
@@ -76,13 +71,12 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     public Item removeFirst() {
         if (size == 0) {
             return null;
-        }
-        else {
-            Item first_rem = sentinel.next.item;
+        } else {
+            Item removeFirst = sentinel.next.item;
             sentinel.next = sentinel.next.next;
             sentinel.next.prev = sentinel;
             size = size - 1;
-            return first_rem;
+            return removeFirst;
         }
     }
 
@@ -91,13 +85,12 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     public Item removeLast() {
         if (size == 0) {
             return null;
-        }
-        else {
-            Item last_rem = sentinel.prev.item;
+        } else {
+            Item removeLast = sentinel.prev.item;
             sentinel.prev = sentinel.prev.prev;
             sentinel.prev.next = sentinel;
             size = size - 1;
-            return last_rem;
+            return removeLast;
         }
     }
 
@@ -106,14 +99,13 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     public Item get(int index) {
         if (index >= size) {
             return null;
-        }
-        else {
-            TNode index_deq = sentinel.next;
+        } else {
+            TNode deqIndex = sentinel.next;
             while (index > 0) {
-                index_deq = index_deq.next;
+                deqIndex = deqIndex.next;
                 index = index - 1;
             }
-            return index_deq.item;
+            return deqIndex.item;
         }
     }
 
@@ -121,8 +113,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     private Item getRecursive(TNode n, int index) {
         if (index == 0) {
             return n.item;
-        }
-        else {
+        } else {
             return getRecursive(n.next, index - 1);
         }
     }
@@ -131,8 +122,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     public Item getRecursive(int index) {
         if (index >= size) {
             return null;
-        }
-        else {
+        } else {
             return getRecursive(sentinel.next, index);
         }
     }

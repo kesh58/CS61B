@@ -9,7 +9,7 @@ public class TestOffByOne {
     static CharacterComparator offByOne = new OffByOne();
 
     @Test
-    public void TestequalChars(){
+    public void testequalChars() {
         assertTrue(offByOne.equalChars('a', 'b'));
         assertTrue(offByOne.equalChars('r', 'q'));
         assertTrue(offByOne.equalChars('&', '%'));

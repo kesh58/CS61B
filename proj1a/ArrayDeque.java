@@ -119,7 +119,7 @@ public class ArrayDeque<T> {
         return items[x];
     }
 
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int ind = 0;
         if (f>=l||(f==l - 1 && size!=0)) {

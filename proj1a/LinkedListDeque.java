@@ -30,7 +30,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         size = 1;
     }
 
-    //Add an item type T to front of the deque.
+    //Add an item type Item to front of the deque.
     @Override
     public void addFirst(Item i) {
         sentinel.next = new TNode(sentinel, i, sentinel.next);
@@ -38,7 +38,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         size = size + 1;
     }
 
-    //Add an item type T to end of the deque.
+    //Add an item type Item to end of the deque.
     @Override
     public void addLast(Item i) {
         sentinel.prev = new TNode(sentinel.prev, i, sentinel);
