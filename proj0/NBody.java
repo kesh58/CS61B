@@ -1,10 +1,15 @@
+/** Project 0.
+ * @author keshang
+ */
+
 public class NBody{
 
-  //given a file name, return the radius of the universe;
-  public static double readRadius(String s){
+  /** given a file name, return the radius of the universe.
+   * @param s Given file name*/
+  public static double readRadius(String s) {
     In in = new In(s);
     int firstItemInFile = in.readInt();
-		double secondItemInFile = in.readDouble();
+    double secondItemInFile = in.readDouble();
     return secondItemInFile;
   }
 
@@ -39,37 +44,44 @@ public class NBody{
     StdDraw.picture(0, 0, "images/starfield.jpg");
     Planet[] p_list = readPlanets(filename);
     int i = 0;
-    while(i<p_list.length){
+    while (i < p_list.length) {
       p_list[i].draw();
       i = i + 1;
     }
     StdDraw.enableDoubleBuffering();
     int time_v = 0;
     int waitTimeMilliseconds = 10;
-    while(time_v <= T){
+
+    while (time_v <= T) {
       double[] xForce = new double[p_list.length];
       double[] yForce = new double[p_list.length];
-      for(int j = 0;j < p_list.length; j +=1){
+
+      for(int j = 0;j < p_list.length; j += 1) {
         xForce[j] = p_list[j].calcNetForceExertedByX(p_list);
         yForce[j] = p_list[j].calcNetForceExertedByY(p_list);
         p_list[j].update(dt, xForce[j], yForce[j]);
       }
+
       StdDraw.picture(0, 0, "images/starfield.jpg");
       int k = 0;
-      while(k<p_list.length){
+
+      while (k < p_list.length) {
         p_list[k].draw();
         k = k + 1;
       }
+
       StdDraw.show();
       StdDraw.pause(waitTimeMilliseconds);
       time_v += dt;
     }
-    StdOut.printf("%d\n", planets.length);
+
+    StdOut.printf("%d\n", p_list.length);
     StdOut.printf("%.2e\n", radius);
-    for (int i = 0; i < planets.length; i++) {
+
+    for (int m = 0; m < p_list.length; m++) {
       StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
-      planets[i].xxPos, planets[i].yyPos, planets[i].xxVel,
-      planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
+              p_list[m].xxPos, p_list[m].yyPos, p_list[m].xxVel,
+              p_list[m].yyVel, p_list[m].mass, p_list[m].imgFileName);
     }
   }
 }
