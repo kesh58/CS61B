@@ -83,10 +83,10 @@ public class IntList {
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
         IntList ptr = A;
-        while (A.rest != null){
+        while (A.rest != null) {
             A = A.rest;
         }
-        while (B != null){
+        while (B != null) {
             A.rest = new IntList(B.first, null);
             A = A.rest;
             B = B.rest;
@@ -100,31 +100,29 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList n_list = new IntList(A.first, null);
-        IntList ptr = n_list;
-        while(A.rest != null){
+        IntList nlist = new IntList(A.first, null);
+        IntList ptr = nlist;
+        while (A.rest != null) {
             A = A.rest;
             ptr.rest = new IntList(A.first, null);
             ptr = ptr.rest;
         }
         ptr.rest = B;
-        return n_list;
+        return nlist;
     }
 
-    public static IntList reverse(IntList A){
-        if (A == null || A.rest == null){
+    public static IntList reverse(IntList A) {
+        if (A == null || A.rest == null) {
             return A;
         }
-        IntList cur = Ax;
-        IntList ptr = cur.rest;
-        cur.rest = null;
+        IntList ptr = A.rest;
+        A.rest = null;
         while (ptr != null) {
-            IntList next = ptr.rest;
-            ptr.rest = cur;
-            cur = ptr;
-            ptr = next;
+            IntList N = ptr.rest;
+            ptr.rest = A;
+            A = ptr;
+            ptr = N;
         }
-        A = cur;
         return A;
     }
 

@@ -18,7 +18,7 @@ public class SLList {
 
     private static void lectureQuestion() {
         SLList L = new SLList();
-        IntNode n = IntNode(5, null);
+        IntNode n = new IntNode(5, null);
     }
 
     /** Creates an empty SLList. */

@@ -70,8 +70,10 @@ public class IntListTest {
     public void testReserve() {
         IntList A = IntList.of(1, 2, 3, 4, 5);
         IntList exp = IntList.of(5, 4, 3, 2, 1);
-        IntList acutal = IntList.reverse(A);
-        assertEquals(exp, acutal);
+        IntList actual = IntList.reverse(A);
+        assertEquals(exp, actual);
+        assertNotEquals(A, IntList.of(1, 2, 3, 4, 5));
+        assertEquals(IntList.reverse(null), null);
     }
 
     /** If you're running this from the command line, you'll need
