@@ -1,9 +1,9 @@
-public interface Deque<Item> {
-    public void addFirst(Item i);
+public interface Deque<T> {
+    public void addFirst(T i);
 
 
     //Add an item type T to end of the deque.
-    public void addLast(Item i);
+    public void addLast(T i);
 
     //Returns true if deque is empty, false otherwise.
     public boolean isEmpty();
@@ -15,12 +15,12 @@ public interface Deque<Item> {
     public void printDeque();
 
     //Removes and returns the item at the front of the deque. If no such item, return null.
-    public Item removeFirst();
+    public T removeFirst();
 
     //Removes and returns the item at the back of the deque. If no such item exists, returns null.
-    public Item removeLast();
+    public T removeLast();
 
     //Gets the item at the given index.
-    public Item get(int index);
+    public T get(int index);
 
 }
