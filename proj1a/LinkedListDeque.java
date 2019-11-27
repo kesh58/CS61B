@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T>{
     private class TNode {
         private TNode prev;
         private T item;
@@ -22,16 +22,9 @@ public class LinkedListDeque<T> implements Deque<T> {
         size = 0;
     }
 
-    //Create a Deque with one item.
-    public LinkedListDeque(T x) {
-        sentinel = new TNode(null, null, null);
-        sentinel.next = new TNode(sentinel, x, sentinel);
-        sentinel.prev = sentinel.next;
-        size = 1;
-    }
 
     //Add an item type T to front of the deque.
-    @Override
+
     public void addFirst(T i) {
         sentinel.next = new TNode(sentinel, i, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
@@ -39,7 +32,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     //Add an item type T to end of the deque.
-    @Override
+
     public void addLast(T i) {
         sentinel.prev = new TNode(sentinel.prev, i, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
@@ -47,19 +40,19 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     //Returns true if deque is empty, false otherwise.
-    @Override
+
     public boolean isEmpty() {
         return size == 0;
     }
 
     //Returns the number of items in the deque.
-    @Override
+
     public int size() {
         return size;
     }
 
     //Print the items in the deque from first to last, separated by a space.
-    @Override
+
     public void printDeque() {
         for (int i = 0; i < size; i = i + 1) {
             System.out.print(this.get(i) + " ");
@@ -67,45 +60,45 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     //Removes and returns the item at the front of the deque. If no such item, return null.
-    @Override
+
     public T removeFirst() {
         if (size == 0) {
             return null;
         } else {
-            T first_rem = sentinel.next.item;
+            T firstRem = sentinel.next.item;
             sentinel.next = sentinel.next.next;
             sentinel.next.prev = sentinel;
             size = size - 1;
-            return first_rem;
+            return firstRem;
         }
     }
 
     //Removes and returns the item at the back of the deque. If no such item exists, returns null.
-    @Override
+
     public T removeLast() {
         if (size == 0) {
             return null;
         } else {
-            T last_rem = sentinel.prev.item;
+            T lastRem = sentinel.prev.item;
             sentinel.prev = sentinel.prev.prev;
             sentinel.prev.next = sentinel;
             size = size - 1;
-            return last_rem;
+            return lastRem;
         }
     }
 
     //Gets the item at the given index.
-    @Override
+
     public T get(int index) {
         if (index >= size) {
             return null;
         } else {
-            TNode index_deq = sentinel.next;
+            TNode indexDeq = sentinel.next;
             while (index > 0) {
-                index_deq = index_deq.next;
+                indexDeq = indexDeq.next;
                 index = index - 1;
             }
-            return index_deq.item;
+            return indexDeq.item;
         }
     }
 

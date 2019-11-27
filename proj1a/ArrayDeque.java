@@ -122,7 +122,7 @@ public class ArrayDeque<T> {
         T[] a = (T[]) new Object[capacity];
         int ind = 0;
 
-        if(f - l == items.length - 1 && size == items.length){
+        if (f - l == items.length - 1 && size == items.length) {
             System.arraycopy(items, 0, a, 0, size);
             f = a.length - 1;
             l = size;
