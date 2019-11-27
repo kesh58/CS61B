@@ -1,4 +1,4 @@
-package synthesizer;// TODO: Make sure to make this class a part of the synthesizer package
+package synthesizer; // TODO: Make sure to make this class a part of the synthesizer package
 //package <package name>;
 
 //Make sure this class is public
@@ -29,10 +29,10 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
-        for (int i = 0; i < buffer.fillCount(); i++){
+        for (int i = 0; i < buffer.fillCount(); i++) {
             buffer.dequeue();
         }
-        for (int j = 0; j < buffer.capacity(); j++){
+        for (int j = 0; j < buffer.capacity(); j++) {
             buffer.enqueue(Math.random() - 0.5);
         }
     }
