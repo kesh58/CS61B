@@ -2,6 +2,9 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
+
+import java.util.Random;
 
 public class Game {
     TERenderer ter = new TERenderer();
@@ -31,8 +34,48 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
+        String inp = input.toLowerCase();
+        TETile[][] finalWorldFrame;
 
-        TETile[][] finalWorldFrame = null;
+
+        if(inp.startsWith("n") && inp.endsWith("s")){
+            Long input_long;
+            int start = inp.indexOf("n") + 1;
+            int end = inp.indexOf("s");
+
+            try {
+                input_long = Long.parseLong(inp.substring(start,end));
+            } catch(Exception e) {
+                throw new RuntimeException("Seed has to be an integer but you input: " + input.substring(start, end) + ".");
+            }
+
+            ter.initialize(WIDTH, HEIGHT);
+            finalWorldFrame = new TETile[WIDTH][HEIGHT];
+            for (int x = 0; x < WIDTH; x += 1) {
+                for (int y = 0; y < HEIGHT; y += 1) {
+                    finalWorldFrame[x][y] = Tileset.NOTHING;
+                }
+            }
+
+            MapGenerator.Room_constructor(finalWorldFrame, Tileset.FLOOR, Tileset.WALL, true);
+            final long SEED = input_long;
+            final Random RANDOM = new Random(SEED);
+            int tileNum = RANDOM.nextInt(3);
+
+            for(int i = 0; i < 4000; i +=1){
+                switch (tileNum) {
+                    case 0: MapGenerator.hallway_builder(finalWorldFrame, Tileset.FLOOR, Tileset.WALL);
+                    case 1: MapGenerator.Room_constructor(finalWorldFrame, Tileset.FLOOR, Tileset.WALL, false);
+                    case 2: MapGenerator.Room_constructor(finalWorldFrame, Tileset.FLOOR, Tileset.WALL, false);
+                    default: MapGenerator.Room_constructor(finalWorldFrame, Tileset.FLOOR, Tileset.WALL, false);
+                }
+            }
+            MapGenerator.draw_door(finalWorldFrame,RANDOM);
+
+            ter.renderFrame(finalWorldFrame);
+        } else {
+            throw new RuntimeException("You must put a string start with 'n/N' and end with 's/S'.");
+        }
         return finalWorldFrame;
     }
 }
