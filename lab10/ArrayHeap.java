@@ -22,13 +22,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
          * the size to be 0 since nothing has been inserted yet. */
         size = 0;
     }
-
     /**
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        return 2*i;
     }
 
     /**
@@ -36,7 +35,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        return 2*i + 1;
     }
 
     /**
@@ -44,7 +43,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int parentIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        return i/2;
     }
 
     /**
@@ -64,10 +63,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * invalid because we leave the 0th entry blank.
      */
     private boolean inBounds(int index) {
-        if ((index > size) || (index < 1)) {
-            return false;
-        }
-        return true;
+        return (index <= size) && (index >= 1);
     }
 
     /**
@@ -108,7 +104,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        return;
+        Node node1 = getNode(index);
+        if(index!=1){
+            Node node2 = getNode(parentIndex(index));
+            if(node1.myPriority< node2.myPriority){
+                swap(index, parentIndex(index));
+                swim(parentIndex(index));
+            }
+        }
     }
 
     /**
@@ -119,7 +122,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        return;
+        Node node1 = getNode(index);
+        if(inBounds(leftIndex(index))){
+            Node node2 = getNode(leftIndex(index));
+            if(inBounds(rightIndex(index))){
+                Node node3 = getNode(rightIndex(index));
+                if(node1.myPriority > node2.myPriority|| node1.myPriority > node3.myPriority){
+                    int min = min(leftIndex(index), rightIndex(index));
+                    swap(index, min);
+                    sink(min);
+                }
+            } else{
+                if(node1.myPriority > node2.myPriority){
+                    swap(index, leftIndex(index));
+                    sink(leftIndex(index));
+                }
+            }
+
+        }
     }
 
     /**
@@ -134,6 +154,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         /* TODO: Your code here! */
+        Node new_node = new Node(item, priority);
+        contents[size+ 1] = new_node;
+        size +=1;
+        swim(size);
     }
 
     /**
@@ -143,7 +167,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T peek() {
         /* TODO: Your code here! */
-        return null;
+        assert getNode(1) != null;
+        return getNode(1).myItem;
     }
 
     /**
@@ -158,7 +183,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        return null;
+        swap(1, size);
+        Node rmv = contents[size];
+        contents[size] = null;
+        size -=1;
+        sink(1);
+        return rmv.myItem;
     }
 
     /**
@@ -181,7 +211,18 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
-        return;
+        for(int i = 0; i< contents.length; i+=1){
+            Node new_node = contents[i];
+            if (new_node.myItem.equals(item)) {
+                new_node.myPriority = priority;
+                if(i != 1 && new_node.myPriority<contents[parentIndex(i)].myPriority){
+                    swim(i);
+                } else if(inBounds(leftIndex(i)) && new_node.myPriority>contents[leftIndex(i)].myPriority){
+                    sink(i);
+                }
+                break;
+            }
+        }
     }
 
     /**
